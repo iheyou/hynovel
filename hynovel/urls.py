@@ -15,13 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken import views as drft
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework.routers import DefaultRouter
 
 from novels import views
+from novels.views import AllNovelListViewSet
+from useropeate.views import UserCollectionNovelViewSet
+
+router = DefaultRouter()
+
+router.register(r'all', AllNovelListViewSet, base_name='all_novel')
+router.register(r'collect', UserCollectionNovelViewSet, base_name='collect')
 
 urlpatterns = [
-    path('', views.home_page, name='home'),
+    path('', include(router.urls)),
+    path('home/', views.home_page, name='home'),
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api-token-auth/', drft.obtain_auth_token),
+    path('login/', obtain_jwt_token, name='login-api'),
     path('novel/', include('novels.urls')),
-    path('^user/', include('django.contrib.auth.urls')),
-    # path('^user/', include('users.urls')),
+    # path('user/', include('django.contrib.auth.urls')),
+    path('user/', include('users.urls')),
 ]

@@ -16,13 +16,13 @@
     </section>
     {% include 'footerinfo.html' %}
     <div class="btn-group-vertical side-bar-btn" role="group">
-{#        <a id="users-btn" class="btn btn-success" href="#}
-{#            {% if users.is_authenticated %}#}
-{#                {% url 'users:userinfo' %}#}
-{#            {% else %}#}
-{#                {% url 'login' %}?next=/users/info#}
-{#            {% endif %}">#}
-{#            <i class="fa fa-users fa"></i>#}
+        <a id="users-btn" class="btn btn-success" href="
+            {% if users.is_authenticated %}
+                {% url 'users:userinfo' %}
+            {% else %}
+                {% url 'users:user' %}?next=/users/info
+            {% endif %}">
+            <i class="fa fa-users fa"></i>
         </a>
     </div>
     <script src="/static/js/jquery-3.2.1.min.js"></script>

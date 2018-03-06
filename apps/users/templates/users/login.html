@@ -1,4 +1,4 @@
-{% extends 'novel/base.html' %}
+{% extends 'novels/base.html' %}
 
 {% block title %}登录{% endblock %}
 
@@ -6,24 +6,24 @@
     <section class="user">
         <div class="container">
             <div class="login-nav">
-                <a href="{% url "login" %}?next={{ next }}" class="{% ifequal request.path "/users/login/"  %}
+                <a href="{% url "users:user" %}?next={{ next }}" class="{% ifequal request.path "/users/login/"  %}
                     active
                 {% endifequal %}">登录</a>
                 <a href="{% url "users:register" %}?next={{ next }}" class="{% ifequal request.path "/users/register/" %}
                     active
                 {% endifequal %}">注册</a>
             </div>
-{#            <form class="form-horizontal users-sign" action="{% url 'login' %}" method="post">#}
-{#                {% csrf_token %}#}
-{#                <div class="input-group">#}
-{#                    <span class="input-group-addon">#}
-{#                        <i class="fa fa-users fa-fw"></i>#}
-{#                    </span>#}
-{#                    {{ form.username }}#}
-{#                </div>#}
-{#            </form>#}
+            <form class="form-horizontal users-sign" action="{% url 'login-api' %}" method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-users fa-fw"></i>
+                    </span>
+                    {{ form.username }}
+                </div><p>欢迎{{ users.username}}</p>
+            </form>
             <div class="border-set">
-                <form class="user-sign" action="{% url 'login' %}" method="post">
+                <form class="user-sign" action="{% url 'login-api' %}" method="post">
                     {% csrf_token %}
                     {{ form.as_ul }}
                     <div class="sign-in-btn">

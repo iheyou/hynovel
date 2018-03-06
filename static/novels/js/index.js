@@ -66,9 +66,9 @@ function searchbtn(){
             '<i class="fa fa-spinner fa-spin fa-4x fa-fw"></i>'
         )
         $.ajax({
-        url:"/novel/search/",
+        url:"/all/",
         type:"get",
-        data:{keyw: kw},
+        data:{search: kw},
         success:function (res) {
             var str = "";
             if (res.content.length == 0){

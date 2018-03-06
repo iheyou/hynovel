@@ -1,14 +1,34 @@
 from math import ceil
 from django.forms.models import model_to_dict
+
+from rest_framework import viewsets
+from rest_framework import mixins
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 from novels.hy_paginator import HyPaginator
 from novels.models import Novel, Chapter
-from django.views.generic import ListView
+from novels.serializers import NovelsSerializer
 
-class HomeList(ListView):
-    model = Novel
+
+class NovelPagination(PageNumberPagination):
+    page_size = 20
+    page_query_param = 'page'
+    page_size_query_param = 'page_size'
+    max_page_size = None
+
+
+class AllNovelListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    queryset = Novel.objects.all()
+    serializer_class = NovelsSerializer
+    pagination_class = NovelPagination
+    search_fields = ('book_name', 'book_author')
+    ordering_fields = ('book_click',)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
 def home_page(request):
     week_hot = Novel.objects.all()[0:3]
@@ -67,6 +87,8 @@ def novels(request, variety='All', page='1'):
 
 def novel_detail(request, novel_id):
     novel = Novel.objects.get(book_identify=novel_id)
+    novel.book_click += 1
+    novel.save(update_fields=['book_click'])
     chapter = Chapter.objects.filter(
         book_identify=novel_id).order_by('-chap_identify')[:10]
     correlation = Novel.objects.all().order_by('-book_id')[:8]
