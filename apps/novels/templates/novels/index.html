@@ -1,0 +1,108 @@
+{% extends 'novels/base.html' %}
+
+{% block title %}优阅{% endblock %}
+
+{% block contents %}
+    {% include 'userprompt.html' %}
+    <section class="content">
+        <div class="container">
+            <div class="border-set">
+                <div class="container">
+                    <div class="head_hot">
+                        <h3 class="item_title">本周热门</h3>
+                        <ul>
+                        {% if week_hot %}
+                        {% for foo in week_hot %}
+                            <li>
+                                <div class="novel">
+                                    <a href="{% url 'novels:novel_detail' foo.book_identify %}">
+                                    <img src="{{ foo.book_image }}" alt="{{ foo.book_name }}">
+                                    </a>
+                                    <a href="{% url 'novels:novel_detail' foo.book_identify %}">{{ foo.book_name }}</a>
+                                </div>
+
+                            </li>
+                        {% endfor %}
+                        {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="novel_horizontal container">
+            <div class="border-set">
+                <ul class="container">
+                    <h3>收藏热门</h3>
+                    {% for foo in collected_hot %}
+                    <li class="novel_horizontal">
+                    <div class="image">
+                        <a href="{% url 'novels:novel_detail' foo.book_identify %}"><img class="img-responsive" src="{{foo.book_image }}" alt=""></a>
+                    </div>
+                    <div class="bk_info">
+                        <div>
+                            <a href="{% url 'novels:novel_detail' foo.book_identify %}"><span>{{ foo.book_name }}</span></a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <span>{{ foo.book_author }}</span>
+                                <span> |</span>
+                            </a>
+                            <a href=""><span>{{ foo.book_category }}</span></a>
+                        </div>
+                        <p>最新：{{ foo.book_latest }}</p>
+                        <p>简介：{{ foo.book_desc }}</p>
+                    </div>
+                </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="novel_horizontal container">
+            <div class="border-set">
+                <ul class="container">
+                    <h3>点击热门</h3>
+                {% for foo in clicked_hot %}
+                    <li class="novel_horizontal">
+                    <div class="image">
+                        <a href="{% url 'novels:novel_detail' foo.book_identify %}"><img class="img-responsive" src="{{foo.book_image }}" alt=""></a>
+                    </div>
+                    <div class="bk_info">
+                        <div>
+                            <a href="{% url 'novels:novel_detail' foo.book_identify %}"><span>{{ foo.book_name }}</span></a>
+                        </div>
+                        <div>
+                            <a href="">
+                                <span>{{ foo.book_author }}</span>
+                                <span> |</span>
+                            </a>
+                            <a href=""><span>{{ foo.book_category }}</span></a>
+                        </div>
+                        <p>最新：{{ foo.book_latest }}</p>
+                        <p>简介：{{ foo.book_desc }}</p>
+                    </div>
+                </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="item_list container">
+            <div class="border-set">
+                <ul class="container">
+                    <h3>最近更新</h3>
+                    {% for foo in latest_list %}
+                    <li>
+                        <div>
+                            <span>[{{ foo.book_createTime }}]</span>
+                            <span><a href="{% url 'novels:novel_detail' foo.book_identify %}">
+                                {{ foo.book_name }}
+                            </a></span>
+                            <span>{{ foo.book_author }}</span>
+                        </div>
+                        <div><a href="">{{ foo.book_latest }}</a></div>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+    {% endblock %}

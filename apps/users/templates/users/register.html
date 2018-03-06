@@ -1,0 +1,75 @@
+{% extends 'novel/base.html' %}
+
+{% block title %}注册{% endblock %}
+
+{% block contents %}
+    <section class="user">
+        <div class="container">
+                <div class="login-nav">
+                    <a href="{% url "login" %}?next={{ next }}" class="{% ifequal request.path "/users/login/"  %}
+                        active
+                    {% endifequal %}">登录</a>
+                    <a href="{% url "users:register" %}?next={{ next }}" class="{% ifequal request.path "/users/register" %}
+                        active
+                    {% endifequal %}">注册</a>
+                </div>
+                <form class="form-horizontal user-sign" action="{% url 'users:register' %}" method="post">
+                    {% csrf_token %}
+                    {% if form.user_name.errors %}
+                        <div class="errorlist alert alert-danger" role="alert">
+                            {{ form.user_name.errors }}
+                        </div>
+                    {% endif %}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                        </span>
+                        {{ form.user_name }}
+                    </div>
+                    {% if form.user_passwd.errors %}
+                      <div class="errorlist alert alert-danger" role="alert">
+                      <ul>
+                          {% for error in form.user_passwd.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                      </ul>
+                      </div>
+                    {% endif %}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-key fa-fw" aria-hidden="true"></i>
+                        </span>
+                        {{ form.user_passwd }}
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-key fa-fw" aria-hidden="true"></i>
+                        </span>
+                        {{ form.user_passwd_confirm }}
+                    </div>
+                    {% if form.user_email.errors %}
+                        <div class="errorlist alert alert-danger" role="alert">
+                            {% for error in form.user_email.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-envelope fa-fw" aria-hidden="true"></i>
+                        </span>
+                        {{ form.user_email }}
+                    </div>
+                    <div class="input-group auto-check">
+                        {{ form.auto_login }}
+                        <i class="fa fa-check-square fa-6"></i>
+                        <label for="id_auto_login">{{ form.auto_login.label }}</label>
+                    </div>
+                    <div class="sign-in-btn">
+                        <input type="submit" value="注册">
+                    </div>
+                </form>
+            </div>
+    </section>
+{% endblock %}

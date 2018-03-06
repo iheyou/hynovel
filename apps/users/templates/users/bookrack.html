@@ -1,0 +1,32 @@
+{% extends 'novel/base.html' %}
+
+{% block title %}
+	<title>用户</title>
+{% endblock title %}
+
+{% block message %}{% endblock message %}
+
+{% block contents %}
+<div class="novel_horizontal container">
+	<div class="border-set">
+        <ul class="container">
+        {% for foo in novels %}
+            <li class="novel_horizontal">
+                <div class="image">
+                    <a href="{% url 'novel:novel_detail' foo.novel_identify %}"><img class="img-responsive" src="{{foo.novel_image }}" alt=""></a>
+                </div>
+                <div class="bk_info">
+                    <div>
+                        <a href="{% url 'novel:novel_detail' foo.novel_identify %}"><span>{{ foo.novel_name }}</span></a>
+                    </div>
+                    <div>
+                        <a href=""><span>{{ foo.novel_author }}</span></a>
+                    </div>
+                    <p>最新：{{ foo.novel_latest }}</p>
+                </div>
+        	</li>
+        {% endfor %}
+		</ul>
+    </div>
+</div>
+{% endblock contents%}

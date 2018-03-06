@@ -1,0 +1,81 @@
+{% extends 'novels/base.html' %}
+
+{% block title %}优阅—章节目录{% endblock %}
+
+{% block contents %}
+    <section class="chap-li">
+        <div class="container">
+            <div class="border-set chapter-list">
+                <div class="chap-header">
+                    <div>
+                        <span>共{{ chap_total }}章</span>
+                    </div>
+                    <div>
+                        <button class="btn-modal">{{ curr_page }}<span class="glyphicon glyphicon-chevron-down"></span></button>
+                    </div>
+                    <div>
+                        {% ifequal sort_by 'desc' %}
+                            <a href="{% url 'novel:chapter_list' novel.book_identify 'asc' 1 %}">倒序<i class="glyphicon glyphicon-sort-by-attributes-alt"></i></a>
+                        {% else %}
+                            <a href="{% url 'novel:chapter_list' novel.book_identify 'desc' 1 %}">
+                            正序
+                            <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                            </a>
+                        {% endifequal %}
+                    </div>
+                </div>
+                <ul>
+                    {% for foo in page_data %}
+                    <li>
+                        <a href="{{ foo.chap_contentUrl }}">{{ foo.chap_title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="chap-header">
+                    <div>
+                        <a href="{% if page_data.has_previous %}
+                            {% url 'novel:chapter_list' novel.book_identify sort_by page_data.previous_page_number %}
+                            {% else %}
+                            #
+                        {% endif %}">上一页</a>
+                    </div>
+                    <div>
+                        <button class="btn-modal">{{ curr_page }}<span class="glyphicon glyphicon-chevron-down"></span></button>
+                    </div>
+                    <div>
+                        <a href="{% if page_data.has_next %}
+                            {% url 'novel:chapter_list' novel.book_identify sort_by page_data.next_page_number %}
+                            {% else %}
+                            #
+                        {% endif %}">下一页</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="modal-list mask-hidden">
+        <div class="mask-modal"></div>
+        <div class="modal-co">
+            <p>请选择章节范围</p>
+            <ul>
+            {% for key,value in page_list.items %}
+                {% ifequal key page_data.number %}
+                    <li class="active">
+                        <a href="{% url 'novel:chapter_list' novel.book_identify 'asc' page_data.number %}">
+                            {{ value }}<span class="glyphicon glyphicon-ok"></span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'novel:chapter_list' novel.book_identify 'asc' key %}">
+                        {{ value }}
+                    </a>
+                    </li>
+                {% endifequal %}
+            {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+

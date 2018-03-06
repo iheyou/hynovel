@@ -1,0 +1,37 @@
+{% extends 'novel/base.html' %}
+
+{% block title %}登录{% endblock %}
+
+{% block contents %}
+    <section class="user">
+        <div class="container">
+            <div class="login-nav">
+                <a href="{% url "login" %}?next={{ next }}" class="{% ifequal request.path "/users/login/"  %}
+                    active
+                {% endifequal %}">登录</a>
+                <a href="{% url "users:register" %}?next={{ next }}" class="{% ifequal request.path "/users/register/" %}
+                    active
+                {% endifequal %}">注册</a>
+            </div>
+{#            <form class="form-horizontal users-sign" action="{% url 'login' %}" method="post">#}
+{#                {% csrf_token %}#}
+{#                <div class="input-group">#}
+{#                    <span class="input-group-addon">#}
+{#                        <i class="fa fa-users fa-fw"></i>#}
+{#                    </span>#}
+{#                    {{ form.username }}#}
+{#                </div>#}
+{#            </form>#}
+            <div class="border-set">
+                <form class="user-sign" action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_ul }}
+                    <div class="sign-in-btn">
+                        <input type="submit", value="登录">
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </div>
+                </form>
+            </div>
+            </div>
+    </section>
+{% endblock %}

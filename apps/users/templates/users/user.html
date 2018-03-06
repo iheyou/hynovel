@@ -1,0 +1,68 @@
+{% extends "novel/base.html" %}
+
+{% block title %}
+	<title>用户</title>
+{% endblock title %}
+
+{% block message %}{% endblock message %}
+
+{% block contents %}
+    <div class="container">
+        <div class="user-info">
+            <div class="user-img">
+                <img class="img-circle" src="/static/images/5.jpeg" alt="">
+                <p>优哥很给力</p>
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">最近阅读</div>
+            <div class="panel-body">
+                <ul class="last-read-list">
+                    <li>
+                        <a href="">
+                            <p>万古神帝</p>
+                            <p>第一千三百章 进击的巨人</p>
+                            <p>1小时前</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <p>万古神帝</p>
+                            <p>第一千三百章</p>
+                            <p>1小时前</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <p>万古神帝</p>
+                            <p>第一千三百章</p>
+                            <p>1小时前</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-set">
+            <div class="user-center-btn">
+                <a class="btn" href="{% url 'users:bookrack' %}">我的书架<i class="fa fa-angle-right fa-fw"></i></a>
+            </div>
+
+        </div>
+        <div class="border-set">
+            <div class="user-center-btn">
+                <ul>
+                    <li><a class="btn" href="">账户绑定<i class="fa fa-angle-right fa-fw"></i></a></li>
+                    <li><a class="btn" href="">修改密码<i class="fa fa-angle-right fa-fw"></i></a></li>
+                    <li><a class="btn" href="">阅读设置<i class="fa fa-angle-right fa-fw"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-set">
+            <a class="btn btn-danger user-sign-out" href="{% url 'logout' %}?next=/">退出登录</a>
+        </div>
+    </div>
+	 {{user}}
+    <div>
+    {{ test }}
+    </div>
+{% endblock contents %}

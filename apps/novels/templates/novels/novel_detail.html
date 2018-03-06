@@ -1,0 +1,106 @@
+{% extends 'novels/base.html' %}
+
+{% block title %}优阅—小说详情{% endblock %}
+
+{% block message %}{% endblock %}
+
+{% block contents %}
+    <div class="novel">
+        <div class="bgc-color novel_info container">
+            <div class="top">
+                <div class="img">
+                    <img src="{{ novel.book_image }}" alt="">
+                </div>
+                <div class="top_right">
+                    <a href="#">{{ novel.book_name }}</a>
+                    <a href="#">{{ novel.book_author }}</a>
+                    <a href="#">{{ novel.book_category }}</a>
+                    <p>{{ novel.book_latest }}</p>
+                    <input type="hidden" value="{{ novel.book_identify }}">
+                </div>
+            </div>
+            <div class="middle">
+                <ul>
+                    <li><a {% if user.is_authenticated %}
+                        onclick="collectbtn();"
+                        {% else %}
+                        href="{% url 'login' %}?next={{ request.path }}" 
+                    {% endif %} 
+                        class="novel-collect-btn" is_collect="False">加入书架</a></li>
+                    <li><a href="">开始阅读</a></li>
+                    <li><a href="{% url 'novel:chapter_list' novel.book_identify 'desc' 1 %}">查看目录</a></li>
+                </ul>
+            </div>
+            <div class="line"> </div>
+            <div class="desc">
+                <p>{{ novel.book_desc }}</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="border-set">
+                <div class="latest_chapter">
+                    <ul class="container">
+                        <h3>最新章节</h3>
+                        {% if chapter %}
+                            {% for foo in chapter %}
+                            <li>
+                                <a href="{{ foo.chap_contentUrl }}">{{ foo.chap_title }}</a>
+                            </li>
+                            {% endfor %}
+                        {% endif %}
+                        <li><a href="{% url 'novel:chapter_list' novel.book_identify 'desc' 1 %}">查看全部章节</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-set">
+                <div class="scroll container">
+                <h3 >相关推荐</h3>
+                    <div class="novel_vertical">
+                    <ul>
+                        {% if correlation %}
+                        {% for foo in correlation %}
+                        <li>
+                            <div class="novel">
+                                <a href="{% url 'novel:novel_detail' foo.book_identify %}">
+                                <img src="{{ foo.book_image }}" alt="{{ foo.book_name }}">
+                            </a>
+                            <a href="{% url 'novel:novel_detail' foo.book_identify %}">{{ foo.book_name }}</a>
+                            </div>
+                        </li>
+                        {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script>
+        $(document).ready(function () {
+            is_collect();
+        })
+        function is_collect() {
+            var id=$('.top_right input').val();
+            $.get("/user/is_collected/", {'novel_identify':id}, function (data) {
+                if (data == 'True'){
+                    $('.novel-collect-btn')
+                        .text("取消收藏")
+                        .attr('is_collect','True')
+                        .parent()
+                        .css({'background-color':'#999', 'border-color': '#999'});
+                }else{
+                    $('.novel-collect-btn')
+                        .text("加入书架")
+                        .attr('is_collect','False')
+                        .parent()
+                        .css({'background-color':'#00c59e', 'border-color': '#00c59e'});
+                }
+            });
+        }
+    </script>
+{% endblock %}
+
+
+

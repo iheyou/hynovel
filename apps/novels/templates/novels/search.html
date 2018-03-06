@@ -1,0 +1,17 @@
+{% extends "novels/base.html" %}
+
+{% block title %}搜索{% endblock %}
+
+{% block contents %}
+    <div class="search-page">
+         <div class="container">
+             <div class="search-form">
+                <i class="fa fa-search fa-fw" aria-hidden="true"></i>
+                <input type="text" class="search-kw" placeholder="请输入书名或作者" autofocus required="required">
+                <a class="search-btn" onclick="searchbtn();">搜索</a>
+             </div>
+
+         </div>
+        <div class="novel_horizontal container"></div>
+     </div>
+{% endblock %}

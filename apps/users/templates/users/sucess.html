@@ -1,0 +1,34 @@
+{% extends 'novel/index.html' %}
+{% block title %}
+    <title>登录</title>
+{% endblock %}
+
+{% block link %}
+
+{% endblock %}
+
+{% block message %}
+    <section class="user">
+        <div class="container">
+                <div class="login-nav">
+                    <a href="{% url "login" %}?next={{ next }}" class="{% ifequal request.path "/users/login/"  %}
+                        active
+                    {% endifequal %}">登录</a>
+                    <a href="{% url "users:register" %}?next={{ next }}" class="{% ifequal request.path "/users/register/" %}
+                        active
+                    {% endifequal %}">注册</a>
+                </div>
+                <div>
+                    {% if messages %}
+                        {% for foo in messages %}
+                            <p>{{ foo }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/novels/css/index.css">
+    <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+    {% include 'nav.html' %}
+
+    <section class="contents">
+    {% block contents %}{% endblock %}
+    </section>
+    {% include 'footerinfo.html' %}
+    <div class="btn-group-vertical side-bar-btn" role="group">
+{#        <a id="users-btn" class="btn btn-success" href="#}
+{#            {% if users.is_authenticated %}#}
+{#                {% url 'users:userinfo' %}#}
+{#            {% else %}#}
+{#                {% url 'login' %}?next=/users/info#}
+{#            {% endif %}">#}
+{#            <i class="fa fa-users fa"></i>#}
+        </a>
+    </div>
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/novels/js/index.js"></script>
+    {% block javascript %}{% endblock %}
+</body>
+</html>
