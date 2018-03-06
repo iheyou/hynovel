@@ -15,9 +15,9 @@
                     </div>
                     <div>
                         {% ifequal sort_by 'desc' %}
-                            <a href="{% url 'novel:chapter_list' novel.book_identify 'asc' 1 %}">倒序<i class="glyphicon glyphicon-sort-by-attributes-alt"></i></a>
+                            <a href="{% url 'novels:chapter_list' novel.book_identify 'asc' 1 %}">倒序<i class="glyphicon glyphicon-sort-by-attributes-alt"></i></a>
                         {% else %}
-                            <a href="{% url 'novel:chapter_list' novel.book_identify 'desc' 1 %}">
+                            <a href="{% url 'novels:chapter_list' novel.book_identify 'desc' 1 %}">
                             正序
                             <span class="glyphicon glyphicon-sort-by-attributes"></span>
                             </a>
@@ -34,7 +34,7 @@
                 <div class="chap-header">
                     <div>
                         <a href="{% if page_data.has_previous %}
-                            {% url 'novel:chapter_list' novel.book_identify sort_by page_data.previous_page_number %}
+                            {% url 'novels:chapter_list' novel.book_identify sort_by page_data.previous_page_number %}
                             {% else %}
                             #
                         {% endif %}">上一页</a>
@@ -44,7 +44,7 @@
                     </div>
                     <div>
                         <a href="{% if page_data.has_next %}
-                            {% url 'novel:chapter_list' novel.book_identify sort_by page_data.next_page_number %}
+                            {% url 'novels:chapter_list' novel.book_identify sort_by page_data.next_page_number %}
                             {% else %}
                             #
                         {% endif %}">下一页</a>
@@ -62,13 +62,13 @@
             {% for key,value in page_list.items %}
                 {% ifequal key page_data.number %}
                     <li class="active">
-                        <a href="{% url 'novel:chapter_list' novel.book_identify 'asc' page_data.number %}">
+                        <a href="{% url 'novels:chapter_list' novel.book_identify 'asc' page_data.number %}">
                             {{ value }}<span class="glyphicon glyphicon-ok"></span>
                         </a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="{% url 'novel:chapter_list' novel.book_identify 'asc' key %}">
+                        <a href="{% url 'novels:chapter_list' novel.book_identify 'asc' key %}">
                         {{ value }}
                     </a>
                     </li>

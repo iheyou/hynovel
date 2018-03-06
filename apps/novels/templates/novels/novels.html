@@ -8,22 +8,22 @@
         <div class="category container">
             <div class="border-set">
                 <ul class="container">
-                <li><a href="{% url 'novel:novel_variety' 'All' '1' %}">全部分类</a></li>
-                <li><a href="{% url 'novel:novel_variety' 'XuanHuan' '1' %}">玄幻小说</a></li>
-                <li><a href="{% url 'novel:novel_variety' 'XiuZhen' '1' %}">修真小说</a></li>
-                <li><a href="{% url 'novel:novel_variety' 'ChuanYue' '1' %}">穿越小说</a></li>
-                <li><a href="{% url 'novel:novel_variety' 'WangYou' '1' %}">网游小说</a></li>
+                <li><a href="{% url 'novels:novel_variety' 'All' '1' %}">全部分类</a></li>
+                <li><a href="{% url 'novels:novel_variety' 'XuanHuan' '1' %}">玄幻小说</a></li>
+                <li><a href="{% url 'novels:novel_variety' 'XiuZhen' '1' %}">修真小说</a></li>
+                <li><a href="{% url 'novels:novel_variety' 'ChuanYue' '1' %}">穿越小说</a></li>
+                <li><a href="{% url 'novels:novel_variety' 'WangYou' '1' %}">网游小说</a></li>
 {#                <li><a href="{% url 'novel_variety' 'QiHuan' '1' %}">奇幻小说</a></li>#}
 {#                <li><a href="{% url 'novel_variety' 'WuXia' '1' %}">武侠小说</a></li>#}
 {#                <li><a href="{% url 'novel_variety' 'XianXia' '1' %}">仙侠小说</a></li>#}
-                <li><a href="{% url 'novel:novel_variety' 'DuShi' '1' %}">都市小说</a></li>
+                <li><a href="{% url 'novels:novel_variety' 'DuShi' '1' %}">都市小说</a></li>
 {#                <li><a href="{% url 'novel_variety' 'LiShi' '1' %}">历史小说</a></li>#}
 {#                <li><a href="{% url 'novel_variety' 'JunShi' '1' %}">军事小说</a></li>#}
-{#                <li><a href="{% url 'novel:novel_variety' 'YouXi' '1' %}">游戏小说</a></li>#}
+{#                <li><a href="{% url 'novels:novel_variety' 'YouXi' '1' %}">游戏小说</a></li>#}
 {#                    <li><a href="{% url 'novel_variety' 'JingJi' '1' %}">竞技小说</a></li>#}
 {#                <li><a href="{% url 'novel_variety' 'LingYi' '1' %}">灵异小说</a></li>#}
-                <li><a href="{% url 'novel:novel_variety' 'KeHuan' '1' %}">科幻小说</a></li>
-                <li><a href="{% url 'novel:novel_variety' 'Other' '1' %}">其他小说</a></li>
+                <li><a href="{% url 'novels:novel_variety' 'KeHuan' '1' %}">科幻小说</a></li>
+                <li><a href="{% url 'novels:novel_variety' 'Other' '1' %}">其他小说</a></li>
                     <li>{{ page }}</li>
             </ul>
             </div>
@@ -36,11 +36,11 @@
                 {% for foo in page_data.novels %}
                     <li class="novel_horizontal">
                     <div class="image">
-                        <a href="{% url 'novel:novel_detail' foo.book_identify %}"><img class="img-responsive" src="{{foo.book_image }}" alt=""></a>
+                        <a href="{% url 'novels:novel_detail' foo.book_identify %}"><img class="img-responsive" src="{{foo.book_image }}" alt=""></a>
                     </div>
                     <div class="bk_info">
                         <div>
-                            <a href="{% url 'novel:novel_detail' foo.book_identify %}"><span>{{ foo.book_name }}</span></a>
+                            <a href="{% url 'novels:novel_detail' foo.book_identify %}"><span>{{ foo.book_name }}</span></a>
                         </div>
                         <div>
                             <a href=""><span>{{ foo.book_author }}</span><span> |</span></a>
@@ -55,27 +55,27 @@
                 <div class="page">
                     <ul>
                     {% if page_data.previous_10 %}
-                        <li class="char-font"><a href="{% url 'novel:novel_variety' variety  page_data.previous_10 %}">&laquo;</a></li>
+                        <li class="char-font"><a href="{% url 'novels:novel_variety' variety  page_data.previous_10 %}">&laquo;</a></li>
                     {% endif %}
                     {% if page_data.novels.has_previous %}
-                        <li class="char-font"><a href="{% url 'novel:novel_variety' variety page_data.novels.previous_page_number %} }">&lsaquo;</a></li>
+                        <li class="char-font"><a href="{% url 'novels:novel_variety' variety page_data.novels.previous_page_number %} }">&lsaquo;</a></li>
                     {% endif %}
                     {% if page_data.l_list %}
                         {% for page_num in page_data.l_list %}
-                            <li><a href="{% url 'novel:novel_variety' variety page_num %}">{{ page_num }}</a></li>
+                            <li><a href="{% url 'novels:novel_variety' variety page_num %}">{{ page_num }}</a></li>
                         {% endfor %}
                     {% endif %}
                     <li class="active"><a>{{ page_data.novels.number }}</a></li>
                     {% if page_data.r_list %}
                         {% for page_num in page_data.r_list %}
-                            <li><a href="{% url 'novel:novel_variety' variety page_num %}">{{ page_num }}</a></li>
+                            <li><a href="{% url 'novels:novel_variety' variety page_num %}">{{ page_num }}</a></li>
                         {% endfor %}
                     {% endif %}
                     {% if page_data.novels.has_next %}
-                        <li class="char-font"><a href="{% url 'novel:novel_variety' variety page_data.novels.next_page_number %}">&rsaquo;</a></li>
+                        <li class="char-font"><a href="{% url 'novels:novel_variety' variety page_data.novels.next_page_number %}">&rsaquo;</a></li>
                     {% endif %}
                     {% if page_data.next_10 %}
-                        <li class="char-font"><a href="{% url 'novel:novel_variety' variety page_data.next_10 %}">&raquo;</a></li>
+                        <li class="char-font"><a href="{% url 'novels:novel_variety' variety page_data.next_10 %}">&raquo;</a></li>
                     {% endif %}
                 </ul>
                 </div>

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.contrib import auth
 
-from django.contrib.auth.models import User
+from users.models import UserProfile
 from django.forms.utils import ErrorList
 from users.models import UserCollectNovels
 from users.forms import LoginForm, RegisterForm
@@ -31,7 +31,7 @@ def sign_up(request):
             password = signup_info['user_passwd']
             user_email = signup_info['user_email'] if signup_info[
                 'user_email'] else None
-            user = User.objects.create_user(
+            user = UserProfile.objects.create_user(
                 username=username,
                 password=password,
                 email=user_email,
@@ -80,7 +80,7 @@ def sign_up(request):
 def user_info(request):
     user_id = request.session.get('_auth_user_id')
     if user_id:
-        username = User.objects.get(id=user_id)
+        username = UserProfile.objects.get(id=user_id)
         return render(request, 'users/user.html', {'users': username})
     else:
         return HttpResponseRedirect('/users/login')

@@ -28,7 +28,7 @@
                     {% endif %} 
                         class="novel-collect-btn" is_collect="False">加入书架</a></li>
                     <li><a href="">开始阅读</a></li>
-                    <li><a href="{% url 'novel:chapter_list' novel.book_identify 'desc' 1 %}">查看目录</a></li>
+                    <li><a href="{% url 'novels:chapter_list' novel.book_identify 'desc' 1 %}">查看目录</a></li>
                 </ul>
             </div>
             <div class="line"> </div>
@@ -48,7 +48,7 @@
                             </li>
                             {% endfor %}
                         {% endif %}
-                        <li><a href="{% url 'novel:chapter_list' novel.book_identify 'desc' 1 %}">查看全部章节</a></li>
+                        <li><a href="{% url 'novels:chapter_list' novel.book_identify 'desc' 1 %}">查看全部章节</a></li>
                     </ul>
                 </div>
             </div>
@@ -61,10 +61,10 @@
                         {% for foo in correlation %}
                         <li>
                             <div class="novel">
-                                <a href="{% url 'novel:novel_detail' foo.book_identify %}">
+                                <a href="{% url 'novels:novel_detail' foo.book_identify %}">
                                 <img src="{{ foo.book_image }}" alt="{{ foo.book_name }}">
                             </a>
-                            <a href="{% url 'novel:novel_detail' foo.book_identify %}">{{ foo.book_name }}</a>
+                            <a href="{% url 'novels:novel_detail' foo.book_identify %}">{{ foo.book_name }}</a>
                             </div>
                         </li>
                         {% endfor %}
